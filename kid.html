@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kids Learning </title>
+    <style>
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            text-align: center;
+            background: linear-gradient(135deg, #b50a32, #06e38b);
+        }
+        header {
+            background: linear-gradient(90deg, #fc0d21, #f40762);
+            padding: 20px;
+            font-size: 28px;
+            color: white;
+            border-radius: 10px;
+        }
+        section {
+            margin: 20px auto;
+            padding: 20px;
+            width: 80%;
+            background: radial-gradient(circle, #6a0b68, #ffe4b5);
+            border-radius: 15px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        button {
+            margin: 10px;
+            padding: 15px 25px;
+            font-size: 20px;
+            background: linear-gradient(90deg, #ff4500, #ff6347);
+            color: rgb(68, 207, 13);
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+        .game-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+        .memory-card, .number-match, .tic-tac-toe-cell {
+            width: 100px;
+            height: 100px;
+            display: inline-block;
+            background: linear-gradient(135deg, #790ca8, #6f1582);
+            line-height: 100px;
+            font-size: 24px;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 10px;
+            text-align: center;
+        }
+        .flipped, .matched {
+            background: linear-gradient(135deg, #99e708, #0c91de);
+            color: rgb(243, 9, 29);
+        }
+        .tic-tac-toe {
+            display: grid;
+            
+            grid-template-columns: repeat(3, 100px);
+            grid-gap: 10px;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>🎉 Welcome to Kids Learning Fun! 🎉</h1>
+    </header>
+    <main>
+        <section id="memory-game">
+            <h2>🃏 Memory Card Game 🎮</h2>
+            <div id="memory-board" class="game-container"></div>
+            <p id="memory-feedback"></p>
+            <button onclick="setupMemoryGame()">Restart</button>
+        </section>
+
+        <section id="number-matching-game">
+            <h2>🔢 Number Matching Game 🎮</h2>
+            <div id="number-board" class="game-container"></div>
+            <p id="number-feedback"></p>
+            <button onclick="setupNumberMatching()">Restart</button>
+        </section>
+
+        <section id="quiz">
+            <h2>📚 Quiz Time! 🎓</h2>
+            <p id="quiz-question">Click Start to begin!</p>
+            <div id="quiz-options"></div>
+            <p id="quiz-result"></p>
+            <button onclick="nextQuizQuestion()">Start Quiz</button>
+        </section>
+
+        <section id="tic-tac-toe">
+            <h2>❌⭕ Tic-Tac-Toe 🎮</h2>
+            <div class="tic-tac-toe" id="tic-tac-toe-board"></div>
+            <p id="tic-tac-toe-feedback"></p>
+            <button onclick="setupTicTacToe()">Restart</button>
+        </section>
+    </main>
+
+    <script>
+        // MEMORY GAME
+        let flippedCards = [];
+        let matchedPairs = 0;
+        function setupMemoryGame() {
+            const memoryBoard = document.getElementById("memory-board");
+            memoryBoard.innerHTML = "";
+            document.getElementById("memory-feedback").innerText = "";
+            flippedCards = [];
+            matchedPairs = 0;
+            const cards = ['🐶', '🐱', '🐭', '🐹', '🐰', '🦊', '🐻', '🐼', '🐶', '🐱', '🐭', '🐹', '🐰', '🦊', '🐻', '🐼'];
+            cards.sort(() => 0.5 - Math.random());
+            cards.forEach(symbol => {
+                let card = document.createElement("div");
+                card.classList.add("memory-card");
+                card.dataset.symbol = symbol;
+                card.onclick = () => revealCard(card);
+                memoryBoard.appendChild(card);
+            });
+        }
+        function revealCard(card) {
+            if (!card || flippedCards.length >= 2 || card.classList.contains("flipped")) return;
+            card.textContent = card.dataset.symbol;
+            card.classList.add("flipped");
+            flippedCards.push(card);
+            if (flippedCards.length === 2) setTimeout(checkForMatch, 500);
+        }
+        function checkForMatch() {
+            const [card1, card2] = flippedCards;
+            if (card1.dataset.symbol === card2.dataset.symbol) {
+                card1.classList.add("matched");
+                card2.classList.add("matched");
+                matchedPairs++;
+                if (matchedPairs === 8) document.getElementById("memory-feedback").innerText = "🎉 Game Over! You found all pairs!";
+            } else {
+                setTimeout(() => { card1.classList.remove("flipped"); card2.classList.remove("flipped"); card1.textContent = ""; card2.textContent = ""; }, 1000);
+            }
+            flippedCards = [];
+        }
+        setupMemoryGame();
+        
+    // 🔢 NUMBER MATCHING GAME
+    let numberFlipped = [];
+    let matchedNumbers = 0;
+
+    function setupNumberMatching() {
+        const numberBoard = document.getElementById("number-board");
+        numberBoard.innerHTML = "";
+        document.getElementById("number-feedback").innerText = "";
+        numberFlipped = [];
+        matchedNumbers = 0;
+
+        const numbers = [1,2,3,4,5,6,7,8,9,10,1,2,3,4,5,6,7,8,9,10];
+        numbers.sort(() => Math.random() - 0.5);
+
+        numbers.forEach(num => {
+            let card = document.createElement("div");
+            card.classList.add("number-match");
+            card.dataset.number = num;
+            card.onclick = () => revealNumber(card);
+            numberBoard.appendChild(card);
+        });
+    }
+
+    function revealNumber(card) {
+        if (!card || numberFlipped.length >= 2 || card.classList.contains("flipped")) return;
+        card.textContent = card.dataset.number;
+        card.classList.add("flipped");
+        numberFlipped.push(card);
+
+        if (numberFlipped.length === 2) setTimeout(checkNumberMatch, 500);
+    }
+
+    function checkNumberMatch() {
+        const [card1, card2] = numberFlipped;
+        if (card1.dataset.number === card2.dataset.number) {
+            card1.classList.add("matched");
+            card2.classList.add("matched");
+            matchedNumbers++;
+            if (matchedNumbers === 10) {
+                document.getElementById("number-feedback").innerText = "🎉 You matched all numbers!";
+            }
+        } else {
+            setTimeout(() => {
+                card1.classList.remove("flipped");
+                card2.classList.remove("flipped");
+                card1.textContent = "";
+                card2.textContent = "";
+            }, 1000);
+        }
+        numberFlipped = [];
+    }
+
+    setupNumberMatching();
+
+    // 📚 QUIZ GAME
+    let quizIndex = 0;
+    const quizData = [
+        { question: "What is 5 + 3?", options: ["6", "8", "10"], answer: "8" },
+        { question: "What animal says 'Meow'?", options: ["Dog", "Cat", "Cow"], answer: "Cat" },
+        { question: "Which shape has three sides?", options: ["Square", "Triangle", "Circle"], answer: "Triangle" },
+        { question: "How many legs does a spider have?", options: ["6", "8", "10"], answer: "8" },
+        { question: "What is the capital of France?", options: ["London", "Paris", "Berlin"], answer: "Paris" }
+    ];
+
+    function nextQuizQuestion() {
+        if (quizIndex >= quizData.length) quizIndex = 0;
+
+        const quizQuestion = document.getElementById("quiz-question");
+        const quizOptions = document.getElementById("quiz-options");
+        quizQuestion.innerText = quizData[quizIndex].question;
+        quizOptions.innerHTML = "";
+
+        quizData[quizIndex].options.forEach(option => {
+            let btn = document.createElement("button");
+            btn.innerText = option;
+            btn.onclick = () => checkQuizAnswer(option);
+            quizOptions.appendChild(btn);
+        });
+
+        document.getElementById("quiz-result").innerText = "";
+    }
+
+    function checkQuizAnswer(selected) {
+        const correct = quizData[quizIndex].answer;
+        document.getElementById("quiz-result").innerText = selected === correct ? "✅ Correct!" : "❌ Wrong, Try Again!";
+        quizIndex++;
+    }
+
+    nextQuizQuestion();
+
+
+
+    
+    let board = ["", "", "", "", "", "", "", "", ""];
+    let currentPlayer = "X";
+    let gameActive = true;
+
+    function setupTicTacToe() {
+        board = ["", "", "", "", "", "", "", "", ""];
+        currentPlayer = "X";
+        gameActive = true;
+        document.getElementById("tic-tac-toe-feedback").innerText = "";
+        const ticBoard = document.getElementById("tic-tac-toe-board");
+        ticBoard.innerHTML = "";
+        board.forEach((_, i) => {
+            let cell = document.createElement("div");
+            cell.classList.add("tic-tac-toe-cell");
+            cell.onclick = () => makeMove(i);
+            ticBoard.appendChild(cell);
+        });
+    }
+
+    function makeMove(index) {
+        if (!gameActive || board[index] !== "") return;
+
+        board[index] = currentPlayer;
+        document.getElementsByClassName("tic-tac-toe-cell")[index].innerText = currentPlayer;
+
+        if (checkWinner()) {
+            document.getElementById("tic-tac-toe-feedback").innerText = `🎉 Player ${currentPlayer} Wins!`;
+            gameActive = false;
+            return;
+        }
+
+        if (board.every(cell => cell !== "")) {
+            document.getElementById("tic-tac-toe-feedback").innerText = "🤝 It's a Draw!";
+            gameActive = false;
+            return;
+        }
+
+        currentPlayer = currentPlayer === "X" ? "O" : "X";
+    }
+
+    function checkWinner() {
+        const winningCombinations = [
+            [0, 1, 2], [3, 4, 5], [6, 7, 8], // Rows
+            [0, 3, 6], [1, 4, 7], [2, 5, 8], // Columns
+            [0, 4, 8], [2, 4, 6]            // Diagonals
+        ];
+
+        return winningCombinations.some(combination =>
+            board[combination[0]] !== "" &&
+            board[combination[0]] === board[combination[1]] &&
+            board[combination[1]] === board[combination[2]]
+        );
+    }
+
+    setupTicTacToe();
+</script>
+
+
+</body>
+</html>

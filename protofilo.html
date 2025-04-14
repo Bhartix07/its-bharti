@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bharti Kumari </title>
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="script.js"></script>
+    <link rel="stylesheet" 
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        /* General Styling */
+        * {
+            scroll-behavior: smooth;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(to right, #f4f4f4, #e0e0e0);
+            color: #333;
+            transition: background 0.5s ease-in-out;
+        }
+        .dark-mode {
+            background: #222;
+            color: #fff;
+        }
+        header {
+            background: linear-gradient(90deg, #333, #555);
+            color: white;
+            padding: 1rem;
+            text-align: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+        }
+        nav ul li {
+            margin: 0 15px;
+        }
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+        nav ul li a:hover {
+            color: #ffcc00;
+        }
+        .dark-mode-toggle {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            color: rgb(151, 122, 122);
+        }
+        section {
+            padding: 50px 10%;
+            text-align: center;
+            margin-top: 60px;
+        }
+    
+        /* Project Carousel */
+        .carousel-container {
+            position: relative;
+            max-width: 600px;
+            margin: auto;
+            overflow: hidden;
+        }
+        .project-carousel {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+        .project-card {
+            min-width: 100%;
+            background: rgb(116, 112, 112);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(144, 116, 116, 0.2);
+        }
+        .carousel-buttons {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+        }
+        .carousel-buttons button {
+            background: #333;
+            color: white;
+            padding: 10px;
+            margin: 5px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+        .carousel-buttons button:hover {
+            background: #b07e5d;
+        }
+        /* Skills */
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+        .skill-box {
+            display: flex;
+            align-items: center;
+            background: #fff;
+            padding: 12px 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .skill-box:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+        .skill-box i {
+            font-size: 24px;
+            margin-right: 10px;
+            color: #ff6600;
+        }
+        .dark-mode .skill-box {
+            background: #444;
+        }
+        /* Contact Section */
+        .contact-container {
+            max-width: 500px;
+            margin: auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: left;
+        }
+        .dark-mode .contact-container {
+            background: #444;
+        }
+        .contact-container label {
+            font-weight: bold;
+            display: block;
+            margin: 10px 0 5px;
+        }
+        .contact-container input,
+        .contact-container textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        .contact-container textarea {
+            resize: vertical;
+            height: 100px;
+        }
+        .contact-container button {
+            background: #ff6600;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .contact-container button:hover {
+            background: #e55d00;
+        }
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Bharti Kumari </h1>
+        <nav>
+            <ul>
+                <li><a href="#about">About</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+        <div class="dark-mode-toggle" onclick="toggleDarkMode()">🌙</div>
+    </header>
+
+    <section id="about">
+        <h2>About Me</h2>
+        <p>Hi,<h2> I'm Bharti Kumari,</h2> a passionate Web Developer with expertise in HTML, CSS, JavaScript, React, and more. I love creating interactive and user-friendly applications that solve real-world problems.</p>
+
+    </section>
+    <section id="projects">
+        <h2>Projects</h2>
+        <div class="carousel-container">
+            <div class="project-carousel">
+                <div class="project-card">
+                    <h3>Portfolio Website</h3>
+                    <p>Showcasing my work with smooth animations and an interactive UI.</p>
+                </div>
+                <div class="project-card">
+                    <h3>Kids Learning Fun</h3>
+                    <p>Interactive games for kids to improve memory, logic, and number skills.</p>
+                </div>
+                <div class="project-card">
+                    <h3>Weather App</h3>
+                    <p>Fetches real-time weather data from the OpenWeather API.</p>
+                </div>
+            </div>
+            <div class="carousel-buttons">
+                <button onclick="prevProject()">⬅ Prev</button>
+                <button onclick="nextProject()">Next ➡</button>
+            </div>
+        </div>
+    </section>
+
+
+    <section id="skills">
+        <h2>Skills</h2>
+        <div class="skills-container">
+            <div class="skill-box"><i class="fab fa-html5"></i>HTML</div>
+            <div class="skill-box"><i class="fab fa-css3-alt"></i>CSS</div>
+            <div class="skill-box"><i class="fab fa-js"></i>JavaScript</div>
+            <div class="skill-box"><i class="fab fa-react"></i>React</div>
+            <div class="skill-box"><i class="fab fa-node-js"></i>Node.js</div>
+            <div class="skill-box"><i class="fab fa-python"></i>Python</div>
+            <div class="skill-box"><i class="fas fa-database"></i>MySQL</div>
+            <div class="skill-box"><i class="fab fa-java"></i>Java</div>
+        </div>
+    </section>
+    <section id="contact">
+        <h2>Contact</h2>
+        <p>Email: <a href="mailto:bhartikumari5630@gmail.com">bhartikumari5630@gmail.com</a></p>
+        <p>LinkedIn: <a href="https://www.linkedin.com/in/bharti-kumari-35ab542ba" target="_blank">LinkedIn Profile</a></p>
+        <p>GitHub: <a href="https://github.com/Bhartix07" target="_blank">GitHub Profile</a></p>
+        </section>
+
+    <section id="contact">
+        <h2>Contact Me</h2>
+        <div class="contact-container">
+            <form action="#" method="post">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" placeholder="Your Name" required>
+                
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="Your Email" required>
+                
+                <label for="message">Message</label>
+                <textarea id="message" name="message" placeholder="Your Message" required></textarea>
+                
+                <button type="submit">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Bharti Kumari Portfolio. All rights reserved.</p>
+    </footer>
+
+    <script>
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+        }
+    </script>
+</body>
+</html>
